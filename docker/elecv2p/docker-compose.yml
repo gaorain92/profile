@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  elecv2p:
+    image: elecv2/elecv2p
+    container_name: sngxpro
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8100:80"
+      - "8101:8001"
+      - "8102:8002"
+    volumes:
+      - "/elecv2p/JSFile:/data/elecv2p/app/script/JSFile"
+      - "/elecv2p/Lists:/data/elecv2p/app/script/Lists"
+      - "/elecv2p/Store:/data/elecv2p/app/script/Store"
+      - "/elecv2p/Shell:/data/elecv2p/app/script/Shell"
+      - "/elecv2p/rootCA:/data/elecv2p/app/rootCA"
+      - "/elecv2p/efss:/data/elecv2p/app/efss"

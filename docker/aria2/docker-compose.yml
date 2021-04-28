@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  aria2-ui:
+    restart: unless-stopped
+    image: wahyd4/aria2-ui:latest
+    environment:
+      # 启用 Basic auth(网页简单认证) 用户认证
+      - ENABLE_AUTH=true
+      - ARIA2_USER=gaorain
+      - ARIA2_PWD=Simpled92!
+      # 从外部可以访问到的 Aria2 端口，默认为 HTTP 的80
+      - ARIA2_EXTERNAL_PORT=6668
+      # 需要绑定主机的Linux用户ID，可以通过cat /etc/passwd 查看用户列表， 默认UID 是1000
+      # - PUID=1000
+      # 需要绑定的主机的Linux 用户组ID，默认GID 是1000
+      # - PGID=1000
+      # Aria2 RPC 加密 token
+      - RPC_SECRET=
+      # 绑定的域名, 当绑定的域名为HTTPS时，即为启用HTTPS， 例： DOMAIN=https://toozhao.com
+      - DOMAIN=http://bus.gaorain.cn
+    volumes:
+      # /data 用来放置所有下载的文件的目录
+      - ./data:/data/aria2/data
+      # /app/conf/key 用户来放置 Aria2 SSL certificate证书和 key 文件. 注意: 证书的名字必须是 aria2.crt， Key 文件的名字必须是 aria2.key
+
+      # /app/conf 该目录下可以放置你的自定义aria2.conf配置文件，aria2.session，且必须包含这两个文件。
+      # 第一次使用aria2.session时，创建一个空文件即可，该文件会包含aria2当前的下载列表，这样即使容器被销毁也不用担心文件列表丢失了。
+      # 你也可以直接拷贝当前项目下conf目录中的两个文件并使用。
+      # 如需映射rclone.conf到容器内，请将其就放置于该目录下。
+      # 因此配置文件目录支持的所有配置文件为：
+      # aria2.conf
+      # aria2.session
+      # rclone.conf
+      - ./app/conf:/data/aria2/conf
+
+      # /app/filebrowser.db File Browser 的内嵌数据库，升级Docker 镜像也不用担心之前的设置丢失。请确保在宿主机先创建一个空文件再使用。
