@@ -1,0 +1,4 @@
+DOMAIN-SUFFIX,api.pandalive.co.kr,PROXY
+DOMAIN-SUFFIX,trc-events.taboola.com,PROXY
+DOMAIN-SUFFIX,*.pandalive.co.kr,PROXY
+DOMAIN-SUFFIX,*.pandalive.*,PROXY
